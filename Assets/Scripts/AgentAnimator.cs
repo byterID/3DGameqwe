@@ -11,14 +11,14 @@ public class AgentAnimator : MonoBehaviour
     private Transform target;
     
 
-    public enum AnimStates { Idle, Walk, PickUp, Attack}
+    public enum AnimStates { Idle, Walk, PickUp, Attack}//ввожу названия анимаций
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
 
-    public void SetAnimState(AnimStates animState)
+    public void SetAnimState(AnimStates animState)//устанавливает стадию анимации
     {
         animator.SetInteger("State", (int)animState);
     }

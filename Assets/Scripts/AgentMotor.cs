@@ -23,7 +23,7 @@ public class AgentMotor : MonoBehaviour
             agent.SetDestination(target.position);
             LookAtTarget();
         }
-        if (agent.velocity.magnitude == 0)
+        if (agent.velocity.magnitude == 0)//переключение между анимациями ходьбыи простоя
             animator.SetAnimState(AgentAnimator.AnimStates.Idle);
         else
             animator.SetAnimState(AgentAnimator.AnimStates.Walk);
