@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AgentMotor))]
-public class Player : MonoBehaviour
+public class Player : Character
 {
     private Camera mainCamera;
-    private AgentMotor motor;
     [SerializeField] private LayerMask movableMask;
     [SerializeField] private Interactable focus;
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float currentHealth;
     [SerializeField] private GameObject swordObject;
     [SerializeField] private GameObject shieldObject;
     public static Player Instance;
@@ -20,17 +16,13 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
         mainCamera = Camera.main;
-        motor = GetComponent<AgentMotor>();
-        currentHealth = maxHealth / 2;
+
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -71,7 +63,7 @@ public class Player : MonoBehaviour
             motor.FollowTarget(newFocus);
         }
         
-        newFocus.OnFocused(transform);
+        newFocus.OnFocused(gameObject);
     }
 
     private void RemoveFocus()

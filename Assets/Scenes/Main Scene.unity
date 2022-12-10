@@ -686,6 +686,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10dbe22b91c59a04c9726fc900490980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactRadius: 2
+  maxHealth: 100
+  currentHealth: 0
+  damage: 20
   focus: {fileID: 0}
   agreRadius: 10
 --- !u!1001 &184074057
@@ -11410,12 +11414,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b878253f5459b634a9ecb00e51f67f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactRadius: 2
+  maxHealth: 100
+  currentHealth: 0
+  damage: 20
   movableMask:
     serializedVersion: 2
     m_Bits: 64
   focus: {fileID: 0}
-  maxHealth: 100
-  currentHealth: 0
   swordObject: {fileID: 539039232}
   shieldObject: {fileID: 197999628}
 --- !u!114 &2124142793
@@ -11477,6 +11483,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRadius: 2
+  maxHealth: 100
+  currentHealth: 0
+  damage: 20
 --- !u!1001 &2130829083
 PrefabInstance:
   m_ObjectHideFlags: 0

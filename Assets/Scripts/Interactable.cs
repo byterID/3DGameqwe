@@ -6,28 +6,28 @@ public abstract class Interactable : MonoBehaviour
 {
     public float interactRadius = 2f;
     private bool isFocus = false;
-    private Transform subject;
+    protected GameObject subject;
 
     private bool hasInteracted = false;
-    public abstract void Interact();
+    public abstract void Interact(GameObject subject);
     
-    private void Update()
+    protected virtual void Update()
     {
         if(isFocus == true && hasInteracted == false)
         {
-            float distance = Vector3.Distance(transform.position, subject.position);
+            float distance = Vector3.Distance(transform.position, subject.transform.position);
             if(distance <= interactRadius)
             {
-                Interact();
+                Interact(subject);
                 hasInteracted = true;
             }
         }
     }
 
-    public void OnFocused(Transform subjectTransform)
+    public void OnFocused(GameObject newSubject)
     {
         isFocus = true;
-        subject = subjectTransform;
+        subject = newSubject;
         hasInteracted = false;
     }
     public void OnDefocused()

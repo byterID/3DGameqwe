@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shield : Interactable
 {
-    public override void Interact()
+    public override void Interact(GameObject subject)
     {
         Player.Instance.PickUp();
         Player.Instance.ActivateShield();

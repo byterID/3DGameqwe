@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AgentMotor))]
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
-    private AgentMotor motor;
     [SerializeField] private Interactable focus;
     [SerializeField] private float agreRadius = 10f;
 
@@ -15,13 +13,9 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, agreRadius);
     }
 
-    private void Start()
+    protected override void Update()
     {
-        motor = GetComponent<AgentMotor>();
-    }
-
-    private void Update()
-    {
+        base.Update();
         float distance = Vector3.Distance(transform.position, Player.Instance.transform.position);
         if(distance <= agreRadius)
         {
@@ -45,7 +39,7 @@ public class Enemy : MonoBehaviour
             motor.FollowTarget(newFocus);
         }
 
-        newFocus.OnFocused(transform);
+        newFocus.OnFocused(gameObject);
     }
 
     private void RemoveFocus()
