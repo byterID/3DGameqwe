@@ -10,6 +10,7 @@ public class AgentMotor : MonoBehaviour
     private AgentAnimator animator;
     private Transform target;
     private bool isPickUp = false;
+    private bool isAttacking = false;
 
     private void Start()
     {
@@ -24,7 +25,7 @@ public class AgentMotor : MonoBehaviour
             agent.SetDestination(target.position);
             LookAtTarget();
         }
-        if (isPickUp == false)
+        if (isPickUp == false && isAttacking == false)
         {
             if (agent.velocity.magnitude == 0)//переключение между анимациями ходьбыи простоя
                 animator.SetAnimState(AgentAnimator.AnimStates.Idle);
@@ -72,5 +73,18 @@ public class AgentMotor : MonoBehaviour
         animator.SetAnimState(AgentAnimator.AnimStates.PickUp);
         yield return new WaitForSeconds(0.7f);
         isPickUp = false;
+    }
+
+    public void StartAttack(float attackSpeed)
+    {
+        StartCoroutine(Attack(attackSpeed));
+    }
+
+    private IEnumerator Attack(float attackSpeed)
+    {
+        isAttacking = true;
+        animator.SetAnimState(AgentAnimator.AnimStates.Attack);
+        yield return new WaitForSeconds(attackSpeed - 0.2f);
+        isAttacking = false;
     }
 }

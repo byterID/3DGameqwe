@@ -9,21 +9,19 @@ public class Player : Character
     [SerializeField] private Interactable focus;
     [SerializeField] private GameObject swordObject;
     [SerializeField] private GameObject shieldObject;
-    public static Player Instance;
-    private bool canAttack = false;
     
-
+    public static Player Instance;
     private void Awake()
     {
         Instance = this;
         mainCamera = Camera.main;
-
+        canAttack = false;
     }
 
     protected override void Update()
     {
         base.Update();
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))//на нажатие левой кнопки мыши, игрок просто гуляет по миру
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -34,7 +32,7 @@ public class Player : Character
 
             }
         }
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1))//на правую кнопку мыши нажимать на объект взаимодействия
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -45,13 +43,11 @@ public class Player : Character
                 {
                     SetFocus(interactable);
                 }
-
-
             }
         }
     }
 
-    private void SetFocus(Interactable newFocus)
+    private void SetFocus(Interactable newFocus)//установление фокуса для игрока
     {
         if(newFocus != focus)
         {
@@ -62,11 +58,10 @@ public class Player : Character
             focus = newFocus;
             motor.FollowTarget(newFocus);
         }
-        
         newFocus.OnFocused(gameObject);
     }
 
-    private void RemoveFocus()
+    private void RemoveFocus()//удаление фокуса
     {
         if (focus != null)
             focus.OnDefocused();
@@ -75,22 +70,22 @@ public class Player : Character
         motor.StopFollowingTarget();
     }
 
-    public void Heal()
+    public void Heal()//лечение до максимума
     {
         currentHealth = maxHealth;
     }
 
-    public void PickUp()
+    public void PickUp()//подбор объектов
     {
         motor.StartPickUp();
     }
 
-    public void ActivateSword()
+    public void ActivateSword()//получение возможности атаковать, при подборе меча
     {
         canAttack = true;
         swordObject.SetActive(true);
     }
-    public void ActivateShield()
+    public void ActivateShield()//увеличение хп в 2 раза при подборе щита
     {
         maxHealth *= 2;
         shieldObject.SetActive(true);
