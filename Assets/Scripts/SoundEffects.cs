@@ -18,6 +18,5 @@ public class SoundEffects : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(this);
-
     }
 }

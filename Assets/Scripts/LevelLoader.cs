@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    [SerializeField] private GameObject loadingScreen;
-    [SerializeField] private Slider slider;
+    [SerializeField] private GameObject loadingScreen;//когда начинается загрузка, будет активироваться панель со слайдером
+    [SerializeField] private Slider slider;//переменная слайдера
 
-    public void LoadLevel(int sceneIndex)
+    public void LoadLevel(int sceneIndex)//параметр для указания, какую сцену надо загрузить
     {
         StartCoroutine(LoadAsynchronously(sceneIndex));
     }
 
     private IEnumerator LoadAsynchronously(int sceneIndex)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);//слайдер берет переменную для заполнения и заполняется по мере загрузки сцены
         loadingScreen.SetActive(true);
         while (operation.isDone == false)
         {
