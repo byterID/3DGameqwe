@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AgentMotor))]
-public class Character : Interactable //скрипт для отслеживания еще живых объектов на сцене для врагов
+public abstract class Character : Interactable //скрипт для отслеживания еще живых объектов на сцене для врагов
 {
     [SerializeField] protected float maxHealth = 100f;//максимальное хп игрока
     [SerializeField] protected float currentHealth;//обновляемое хп 
@@ -29,7 +29,7 @@ public class Character : Interactable //скрипт для отслеживания еще живых объект
         {
             if (character.canAttack == true)//и если он может атаковать(кд удара прошло)
             {
-                while (isFocus == true)//и до тех пор пока активен его фокус на объекте
+                while (isFocus == true && subject != null)//и до тех пор пока активен его фокус на объекте
                 {
                     if (Vector3.Distance(transform.position, subject.transform.position) <= interactRadius)//идет проверка дистанции до цели
                     {
@@ -59,10 +59,5 @@ public class Character : Interactable //скрипт для отслеживания еще живых объект
             Die();
         }
     }
-
-    private void Die()//удаление объекта со сцены
-    {
-        print($"{gameObject.name} умер!");
-        Destroy(gameObject);
-    }
+    protected abstract void Die();
 }

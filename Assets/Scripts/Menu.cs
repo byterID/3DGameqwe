@@ -13,4 +13,9 @@ public class Menu : MonoBehaviour
     {
         SoundEffects.Instance.audioSource.PlayOneShot(SoundEffects.Instance.buttonClick);
     }
+
+    public void NewGame()
+    {
+        SaveSystem.DeleteAllSavings();
+    }
 }

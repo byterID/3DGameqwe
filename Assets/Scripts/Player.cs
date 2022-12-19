@@ -9,6 +9,7 @@ public class Player : Character
     [SerializeField] private Interactable focus;
     [SerializeField] private GameObject swordObject;
     [SerializeField] private GameObject shieldObject;
+    [SerializeField] private int coinsCount;
     
     public static Player Instance;
     private void Awake()
@@ -16,6 +17,7 @@ public class Player : Character
         Instance = this;
         mainCamera = Camera.main;
         canAttack = false;
+        transform.position = SaveSystem.GetPlayerPosition();
     }
 
     protected override void Update()
@@ -44,6 +46,10 @@ public class Player : Character
                     SetFocus(interactable);
                 }
             }
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SaveSystem.SetPlayerPosition(transform.position);
         }
     }
 
@@ -89,5 +95,15 @@ public class Player : Character
     {
         maxHealth *= 2;
         shieldObject.SetActive(true);
+    }
+
+    protected override void Die()
+    {
+        Time.timeScale = 0;
+    }
+    public void AddCoins(int coins)//начисление монеток за выполенное задание
+    {
+        coinsCount += coins;
+        print($"Вы получили {coinsCount} монет");
     }
 }

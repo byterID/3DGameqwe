@@ -7,6 +7,8 @@ public class Enemy : Character
     [SerializeField] private Interactable focus;
     [SerializeField] private float agreRadius = 10f;
 
+    public Quest quest;
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -49,5 +51,12 @@ public class Enemy : Character
 
         focus = null;
         motor.StopFollowingTarget();
+    }
+
+    protected override void Die()
+    {
+        if (quest != null)
+            quest.OnEnemyDead();
+        Destroy(gameObject);
     }
 }
